@@ -1,0 +1,58 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ReadingIsGood</name>
+    </assembly>
+    <members>
+        <member name="M:ReadingIsGood.Controllers.CustomerController.Authenticate(ReadingIsGood.Dtos.AuthDto)">
+            <summary>
+            Authenticate customer. Gets token.
+            </summary>
+        </member>
+        <member name="M:ReadingIsGood.Controllers.CustomerController.CreateCustomer(ReadingIsGood.Dtos.CustomerCreateDto)">
+            <summary>
+            Creates customer.
+            </summary>
+        </member>
+        <member name="M:ReadingIsGood.Controllers.CustomerController.GetCurrentCustomerInfo">
+            <summary>
+            Gets logged in customer info.
+            </summary>
+        </member>
+        <member name="M:ReadingIsGood.Controllers.CustomerController.ExecuteOrder(ReadingIsGood.Dtos.ExecuteOrderDto)">
+            <summary>
+            (ADMIN ONLY) Executes specific orders which means book is delivered to the customer. Order status sets to false.
+            </summary>
+        </member>
+        <member name="M:ReadingIsGood.Controllers.OrderController.CreateOrder(ReadingIsGood.Dtos.OrderCreateDto)">
+            <summary>
+            Creates order. New order is created as true for status.
+            </summary>
+        </member>
+        <member name="M:ReadingIsGood.Controllers.OrderController.GetOrders">
+            <summary>
+            Gets Orders. (Admins can see all orders.)
+            </summary>
+        </member>
+        <member name="M:ReadingIsGood.Controllers.ProductController.CreateProduct(ReadingIsGood.Dtos.ProductCreateDto)">
+            <summary>
+            (ADMIN ONLY) Create new products 
+            </summary>
+        </member>
+        <member name="M:ReadingIsGood.Controllers.ProductController.GetProducts">
+            <summary>
+            Gets Products.
+            </summary>
+        </member>
+        <member name="M:ReadingIsGood.Controllers.StockController.CreateStock(ReadingIsGood.Dtos.StockCreateDto)">
+            <summary>
+            (ADMIN ONLY) Create new stock 
+            </summary>
+        </member>
+        <member name="M:ReadingIsGood.Controllers.StockController.GetStocks">
+            <summary>
+            (ADMIN ONLY) Gets stocks.
+            </summary>
+        </member>
+    </members>
+</doc>

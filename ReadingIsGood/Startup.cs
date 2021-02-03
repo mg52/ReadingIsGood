@@ -41,7 +41,6 @@ namespace ReadingIsGood
         private readonly string AllCors = "allCors";
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddCors(options =>
@@ -55,11 +54,9 @@ namespace ReadingIsGood
             });
             services.AddControllers();
 
-            // configure strongly typed settings objects
             var appSettingsSection = Configuration.GetSection("AppSettings");
             services.Configure<AppSettings>(appSettingsSection);
 
-            // configure jwt authentication
             var appSettings = appSettingsSection.Get<AppSettings>();
             var key = Encoding.ASCII.GetBytes(appSettings.Secret);
 
@@ -83,7 +80,6 @@ namespace ReadingIsGood
                 };
             });
 
-            // configure DI for application services
             services.AddScoped<ICustomerService, CustomerService>();
             services.AddScoped<ICustomerRepository, CustomerRepository>();
 
@@ -103,7 +99,6 @@ namespace ReadingIsGood
                 opt.UseNpgsql(Configuration.GetConnectionString("PostgreSqlConnectionString")));
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())

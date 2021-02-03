@@ -80,5 +80,24 @@ namespace ReadingIsGood.Services.OrderService
             return Orders.Adapt<List<OrderDto>>();
         }
 
+        public async Task<List<OrderDto>> ExecuteOrders(ExecuteOrderDto dto)
+        {
+            if (dto.OrderIds == null && dto.OrderIds.Count > 0)
+            {
+                return null;
+            }
+
+            var orderDtoList = new List<OrderDto>();
+            foreach (var orderId in dto.OrderIds)
+            {
+                var currentOrder = await _OrderRepository.GetByIdAsync(orderId);
+                currentOrder.Status = false;
+                await _OrderRepository.UpdateAsync(currentOrder);
+                orderDtoList.Add(currentOrder.Adapt<OrderDto>());
+            }
+
+            return orderDtoList;
+        }
+
     }
 }

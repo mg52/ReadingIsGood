@@ -21,7 +21,6 @@ namespace ReadingIsGood.Services.CustomerService
         private readonly ICustomerRepository _userRepository;
         private readonly AppSettings _appSettings;
 
-        
         public CustomerService(IOptions<AppSettings> appSettings, ICustomerRepository userRepository)
         {
             _appSettings = appSettings.Value;
@@ -53,13 +52,11 @@ namespace ReadingIsGood.Services.CustomerService
 
             if (user == null || !BC.Verify(password, user.Password))
             {
-                // authentication failed
                 return null;
             }
 
             var userDto = user.Adapt<CustomerDto>();
 
-            // authentication successful so generate jwt token
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(_appSettings.Secret);
             var tokenDescriptor = new SecurityTokenDescriptor

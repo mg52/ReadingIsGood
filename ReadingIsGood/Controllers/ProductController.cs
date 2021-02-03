@@ -6,6 +6,7 @@ using ReadingIsGood.Dtos;
 using ReadingIsGood.Services.CustomerService;
 using ReadingIsGood.Entities;
 using ReadingIsGood.Services.ProductService;
+using ReadingIsGood.Helpers;
 
 namespace ReadingIsGood.Controllers
 {
@@ -21,6 +22,9 @@ namespace ReadingIsGood.Controllers
             _productService = productService;
         }
 
+        /// <summary>
+        /// (ADMIN ONLY) Create new products 
+        /// </summary>
         [HttpPost]
         public async Task<IActionResult> CreateProduct([FromBody] ProductCreateDto dto)
         {
@@ -37,6 +41,9 @@ namespace ReadingIsGood.Controllers
             return Ok(response);
         }
 
+        /// <summary>
+        /// Gets Products.
+        /// </summary>
         [HttpGet]
         public async Task<IActionResult> GetProducts()
         {

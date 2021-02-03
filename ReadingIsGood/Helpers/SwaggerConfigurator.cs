@@ -3,6 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -22,6 +23,14 @@ namespace ReadingIsGood.Helpers
                     Title = "Reading Is Good API",
                     Description = "Reading Is Good API"
                 });
+
+                var xmlFile = "ReadingIsGoodApi.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                c.IncludeXmlComments(xmlPath);
+                //c.EnableAnnotations();
+
+                //var filePath = Path.Combine(System.AppContext.BaseDirectory, "ReadingIsGoodApi.xml");
+                //c.IncludeXmlComments(filePath);
 
                 c.AddSecurityDefinition(configuration.GetSection("Swagger")["SecurityDefinitionType"], new Microsoft.OpenApi.Models.OpenApiSecurityScheme
                 {

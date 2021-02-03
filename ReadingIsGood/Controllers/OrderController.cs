@@ -6,6 +6,7 @@ using ReadingIsGood.Dtos;
 using ReadingIsGood.Services.CustomerService;
 using ReadingIsGood.Entities;
 using ReadingIsGood.Services.OrderService;
+using ReadingIsGood.Helpers;
 
 namespace ReadingIsGood.Controllers
 {
@@ -21,6 +22,9 @@ namespace ReadingIsGood.Controllers
             _orderService = orderService;
         }
 
+        /// <summary>
+        /// Creates order. New order is created as true for status.
+        /// </summary>
         [HttpPost]
         public async Task<IActionResult> CreateOrder([FromBody] OrderCreateDto dto)
         {
@@ -37,10 +41,22 @@ namespace ReadingIsGood.Controllers
             return Ok(response);
         }
 
+        /// <summary>
+        /// Gets Orders. (Admins can see all orders.)
+        /// </summary>
         [HttpGet]
         public async Task<IActionResult> GetOrders()
         {
-            var currentCustomerId = Guid.Parse(User.Identity.Name);
+            Guid? currentCustomerId = Guid.Empty;
+
+            if (User.IsInRole(Role.Admin))
+            {
+                currentCustomerId = null;
+            }
+            else
+            {
+                currentCustomerId = Guid.Parse(User.Identity.Name);
+            }
 
             var user = await _orderService.GetOrders(new OrderFilterDto() { CustomerId = currentCustomerId});
 

@@ -4,6 +4,9 @@ using System.Threading.Tasks;
 using System;
 using ReadingIsGood.Dtos;
 using ReadingIsGood.Services.CustomerService;
+using ReadingIsGood.Services.OrderService;
+using ReadingIsGood.Entities;
+using ReadingIsGood.Helpers;
 
 namespace ReadingIsGood.Controllers
 {
@@ -13,12 +16,17 @@ namespace ReadingIsGood.Controllers
     public class CustomerController : ControllerBase
     {
         private ICustomerService _userService;
+        private IOrderService _orderService;
 
-        public CustomerController(ICustomerService userService)
+        public CustomerController(ICustomerService userService, IOrderService orderService)
         {
             _userService = userService;
+            _orderService = orderService;
         }
 
+        /// <summary>
+        /// Authenticate customer. Gets token.
+        /// </summary>
         [AllowAnonymous]
         [HttpPost("authenticate")]
         public async Task<IActionResult> Authenticate([FromForm] AuthDto dto)
@@ -33,6 +41,9 @@ namespace ReadingIsGood.Controllers
             return Ok(user);
         }
 
+        /// <summary>
+        /// Creates customer.
+        /// </summary>
         [AllowAnonymous]
         [HttpPost]
         [Route("CreateCustomer")]
@@ -48,6 +59,9 @@ namespace ReadingIsGood.Controllers
             return Ok(response);
         }
 
+        /// <summary>
+        /// Gets logged in customer info.
+        /// </summary>
         [HttpGet]
         public async Task<IActionResult> GetCurrentCustomerInfo()
         {
@@ -59,6 +73,26 @@ namespace ReadingIsGood.Controllers
                 return NotFound();
 
             return Ok(user);
+        }
+
+        /// <summary>
+        /// (ADMIN ONLY) Executes specific orders which means book is delivered to the customer. Order status sets to false.
+        /// </summary>
+        [HttpPost]
+        [Route("ExecuteOrder")]
+        public async Task<IActionResult> ExecuteOrder([FromBody] ExecuteOrderDto dto)
+        {
+            if (!User.IsInRole(Role.Admin))
+                return Forbid();
+
+            var response = await _orderService.ExecuteOrders(dto);
+
+            if (response == null)
+            {
+                return BadRequest(new { message = "Order cannot found." });
+            }
+
+            return Ok(response);
         }
     }
 }

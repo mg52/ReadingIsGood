@@ -6,6 +6,7 @@ using ReadingIsGood.Dtos;
 using ReadingIsGood.Services.CustomerService;
 using ReadingIsGood.Entities;
 using ReadingIsGood.Services.StockService;
+using ReadingIsGood.Helpers;
 
 namespace ReadingIsGood.Controllers
 {
@@ -21,6 +22,9 @@ namespace ReadingIsGood.Controllers
             _stockService = stockService;
         }
 
+        /// <summary>
+        /// (ADMIN ONLY) Create new stock 
+        /// </summary>
         [HttpPost]
         public async Task<IActionResult> CreateStock([FromBody] StockCreateDto dto)
         {
@@ -37,6 +41,9 @@ namespace ReadingIsGood.Controllers
             return Ok(response);
         }
 
+        /// <summary>
+        /// Gets stocks.
+        /// </summary>
         [HttpGet]
         public async Task<IActionResult> GetStocks()
         {

@@ -11,5 +11,6 @@ namespace ReadingIsGood.Services.OrderService
     {
         Task<OrderDto> CreateOrder(OrderCreateDto dto);
         Task<List<OrderDto>> GetOrders(OrderFilterDto dto);
+        Task<List<OrderDto>> ExecuteOrders(ExecuteOrderDto dto);
     }
 }
