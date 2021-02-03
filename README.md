@@ -10,10 +10,10 @@ If you are a regular user, role need to be "User".
 New orders are created with status = true which mean is an active order. To complete order, Admins can execute order with /Customer/ExeuteOrder method. Than the order's status will be updated as false which means order completed.
 
 Api uses PostgreSQL (heroku free tier) and api is deployed to heroku using docker container using below commands:
-Firstly create <heroku-app-name> App on heroku dashboard.
-1. docker build -t <docker-image-name> .
-2. docker tag <docker-image-name> registry.heroku.com/<heroku-app-name>/web
+Firstly create heroku-app-name App on heroku dashboard.
+1. docker build -t docker-image-name .
+2. docker tag docker-image-name registry.heroku.com/heroku-app-name/web
 3. heroku login
 4. heroku container:login
-5. heroku container:push web -a <heroku-app-name>
-6. heroku container:release web -a <heroku-app-name>
+5. heroku container:push web -a heroku-app-name
+6. heroku container:release web -a heroku-app-name
